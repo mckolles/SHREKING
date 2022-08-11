@@ -12,7 +12,7 @@ const toHTML = mem=>`
       <h5 class="card-title">${mem.tittle}</h5>
       <p class="card-text" style="height:320px">${mem.text}</p>
       <a href="#" class="btn btn-primary" data-btn="price" data-id="${mem.id}">Посмотреть мем</a>
-      <a href="#" class="btn btn-danger" data-btn="remove">Удалить</a>
+      <a href="#" class="btn btn-danger" data-btn="remove" data-id="${mem.id}">Удалить</a>
     </div>
   </div>
 </div>
@@ -55,5 +55,17 @@ document.addEventListener('click',event =>{
         modal.open()
 
         console.log(id,mem)
+    } else if (btnType==='remove'){
+      $.confirm( {
+        tittle: 'Ты точно ОСЁЛ?',
+        content: `<p>ВЫ ебли дракона, с вас <strong>${mems.tittle}</strong></p>`
+      }).then(()=>{
+        console.log ('remove')
+        mems=mems.filter(f=>f.id !==id)
+        render()
+      })
+      .catch(()=>{
+        console.log ('Cancel')
+      })
     }
 })
